@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Color Pass-Through couples a camera and display in an end-to-end learned system for faithful color reproduction."
+    />
+    <meta name="theme-color" content="#10172a" />
+    <meta property="og:title" content="Color Pass-Through via Camera-Display Coupling" />
+    <meta
+      property="og:description"
+      content="An end-to-end learned framework for faithful camera-to-display color reproduction."
+    />
+    <meta property="og:image" content="static/images/teaser.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lyricccco.github.io/color-pass-through/" />
+    <title>Color Pass-Through via Camera-Display Coupling</title>
+    <link rel="icon" href="static/images/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="static/css/index.css" />
+    <script defer src="static/js/index.js"></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header" id="top">
+      <nav class="nav shell" aria-label="Main navigation">
+        <a class="brand" href="#top" aria-label="Color Pass-Through home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Color Pass-Through</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+          <span class="sr-only">Open navigation</span>
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="nav-links">
+          <a href="#overview">Overview</a>
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#citation">Citation</a>
+          <a class="nav-code" href="https://github.com/lyricccco/color-pass-through">Code (Coming Soon)</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="hero">
+        <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+        <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+        <div class="shell hero-content">
+          <div class="venue-pill reveal">
+            <span class="venue-dot"></span>
+            ECCV 2026
+          </div>
+          <p class="eyebrow reveal">Camera × Display × Observer</p>
+          <h1 class="reveal">Color Pass-Through <span>via Camera-Display Coupling</span></h1>
+          <div class="authors reveal" aria-label="Authors">
+            <a href="https://lyricccco.github.io/">Ruikang Li<sup>1</sup></a>
+            <span>Molin Li<sup>2</sup></span>
+            <a href="https://gnwekge78707.github.io/">Jiarui Wu<sup>1</sup></a>
+            <span>Zhe Wei<sup>3</sup></span>
+            <span>Pengpeng Liu<sup>3</sup></span>
+            <a href="https://tianfan.info/">Tianfan Xue<sup>1,†</sup></a>
+          </div>
+          <div class="affiliations reveal">
+            <span><sup>1</sup>CUHK MMLab</span>
+            <span><sup>2</sup>Zhejiang University</span>
+            <span><sup>3</sup>Central Media Technology Institute, Huawei</span>
+          </div>
+          <p class="corresponding reveal"><sup>†</sup> Corresponding author</p>
+
+          <div class="hero-actions reveal">
+            <a class="button button-primary" href="https://tianfan.info/papers/ECCV26_Color_Pass_Through.pdf">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 2h8l4 4v16H6zM14 2v5h5M9 13h6M9 17h6M9 9h2" /></svg>
+              Paper
+            </a>
+            <a class="button button-secondary" href="https://github.com/lyricccco/color-pass-through">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7.4A5.8 5.8 0 0 0 19.2 3 5.4 5.4 0 0 0 19 0S17.8-.4 15 1.5a14 14 0 0 0-6 0C6.2-.4 5 0 5 0a5.4 5.4 0 0 0-.2 3A5.8 5.8 0 0 0 3.2 7c0 5.8 3.5 7 6.8 7.4A4.8 4.8 0 0 0 9 18v4M9 19c-3 .9-3-1.5-4.2-2" /></svg>
+              Code (Coming Soon)
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="teaser-section section-pad">
+        <div class="shell shell-wide">
+          <div class="paper-figure teaser-figure reveal">
+            <h2 class="teaser-slogan">Make a smartphone transparent, <span>like Apple Vision Pro.</span></h2>
+            <a href="static/images/teaser.png" target="_blank" aria-label="Open teaser figure at full resolution">
+              <img
+                src="static/images/teaser.png"
+                alt="A real scene, smartphone, and observers followed by comparisons of default camera, learned white balance, ColorChecker calibration, and our method."
+                width="2244"
+                height="1004"
+              />
+            </a>
+          </div>
+          <div class="teaser-methods reveal" aria-label="Methods shown in the teaser figure">
+            <article>
+              <span>(a)</span>
+              <h3>Commercial smartphone</h3>
+              <p>
+                A strong black-box ISP with production-grade white balance and color transforms.
+              </p>
+            </article>
+            <article>
+              <span>(b)</span>
+              <h3>Multi-illuminant Auto-WB</h3>
+              <p>
+                A state-of-the-art multi-illuminant white-balance method applied on top of (a) to further remove spatially varying illumination casts.
+              </p>
+            </article>
+            <article>
+              <span>(c)</span>
+              <h3>ColorChecker calibration</h3>
+              <p>
+                A strong conventional baseline using ground-truth color correspondences to map (a) into a predefined CIE reference color space.
+              </p>
+            </article>
+            <article>
+              <span>(d)</span>
+              <h3>Ours</h3>
+              <p>
+                <strong>NO illumination priors. NO pre-calibrated color space.</strong> For each specific device, we learn the complete camera-display path end to end.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="impact" aria-label="Key results">
+        <div class="shell impact-grid" role="tablist" aria-label="Key result evidence">
+          <article
+            class="impact-card reveal"
+            id="impact-user-study"
+            tabindex="-1"
+            role="tab"
+            aria-selected="false"
+            aria-controls="evidence-user-study"
+            data-evidence-target="evidence-user-study"
+          >
+            <strong>+2.0</strong>
+            <span>points on a 5-point user study</span>
+          </article>
+          <article
+            class="impact-card active reveal"
+            id="impact-quantitative"
+            tabindex="0"
+            role="tab"
+            aria-selected="true"
+            aria-controls="evidence-quantitative"
+            data-evidence-target="evidence-quantitative"
+          >
+            <strong>&gt;2×</strong>
+            <span>improvement on quantitative metrics</span>
+          </article>
+          <article
+            class="impact-card reveal"
+            id="impact-observer"
+            tabindex="-1"
+            role="tab"
+            aria-selected="false"
+            aria-controls="evidence-observer"
+            data-evidence-target="evidence-observer"
+          >
+            <strong>1-step</strong>
+            <span>calibration for each observer</span>
+          </article>
+        </div>
+
+        <div class="shell impact-evidence reveal">
+          <div
+            class="evidence-panel"
+            id="evidence-user-study"
+            role="tabpanel"
+            aria-labelledby="impact-user-study"
+            hidden
+          >
+            <div class="section-heading evidence-heading">
+              <p class="kicker">Human evaluation</p>
+              <h2>Human-Observers prefer <span class="heading-line">Color Pass-Through.</span></h2>
+              <p>
+                Ten participants calibrated once in a single scene, then rated brightness and color similarity across ten unseen scenes on a 5-point scale.
+              </p>
+              <div class="study-scores" aria-label="User-study scores">
+                <div><strong>4.32 <small>/ 5</small></strong><span>Brightness</span></div>
+                <div><strong>4.03 <small>/ 5</small></strong><span>Color</span></div>
+              </div>
+            </div>
+            <div class="study-figure evidence-figure">
+              <img
+                src="static/images/user-study.png"
+                loading="lazy"
+                alt="User study comparing brightness and color accuracy of four methods, with ours achieving the highest average scores."
+                width="2360"
+                height="397"
+              />
+            </div>
+          </div>
+
+          <div
+            class="evidence-panel active"
+            id="evidence-quantitative"
+            role="tabpanel"
+            aria-labelledby="impact-quantitative"
+          >
+            <div class="section-heading evidence-heading">
+              <p class="kicker">Quantitative evaluation</p>
+              <h2>Large gains on both commercial phones <span class="heading-line device-line">Xiaomi 17 Pro Max / Huawei Pura 70 Pro</span></h2>
+              <p>
+                Evaluation uses 24 ColorChecker patches under ten color temperatures and five randomly sampled RGB-LED illuminants. Lower is better for ΔE and STRESS.
+              </p>
+            </div>
+            <div class="table-wrap" tabindex="0" aria-label="Scrollable quantitative results table">
+              <table>
+                <thead>
+                  <tr>
+                    <th rowspan="2">Method</th>
+                    <th colspan="2">PSNR ↑</th>
+                    <th colspan="2">ΔE mean ↓</th>
+                    <th colspan="2">STRESS ↓</th>
+                  </tr>
+                  <tr>
+                    <th>Huawei</th><th>Xiaomi</th>
+                    <th>Huawei</th><th>Xiaomi</th>
+                    <th>Huawei</th><th>Xiaomi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Default smartphone</th>
+                    <td>13.78</td><td>14.61</td><td>14.62</td><td>13.49</td><td>26.23</td><td>25.07</td>
+                  </tr>
+                  <tr>
+                    <th>ColorChecker calibration</th>
+                    <td>15.02</td><td>16.36</td><td>18.49</td><td>15.32</td><td>38.85</td><td>36.42</td>
+                  </tr>
+                  <tr>
+                    <th>Multi-illuminant Auto-WB</th>
+                    <td>12.84</td><td>13.92</td><td>17.84</td><td>17.08</td><td>31.12</td><td>30.05</td>
+                  </tr>
+                  <tr class="ours-row">
+                    <th>Ours</th>
+                    <td><strong>28.65</strong></td><td><strong>29.10</strong></td>
+                    <td><strong>5.18</strong></td><td><strong>4.79</strong></td>
+                    <td><strong>17.48</strong></td><td><strong>16.12</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div
+            class="evidence-panel"
+            id="evidence-observer"
+            role="tabpanel"
+            aria-labelledby="impact-observer"
+            hidden
+          >
+            <div class="section-heading evidence-heading">
+              <p class="kicker">Observer evaluation</p>
+              <h2>Digital and human observers agree.</h2>
+              <p>
+                DSLR preferences follow the same trend as human judgments across 10 diverse scenes.
+              </p>
+            </div>
+            <div class="study-figure evidence-figure">
+              <img
+                src="static/images/dslr-user-trend.png"
+                loading="lazy"
+                alt="Preference comparison between DSLR-based and human-subject evaluations across ten scenes."
+                width="3240"
+                height="648"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad" id="overview">
+        <div class="shell">
+          <div class="section-heading reveal">
+            <p class="kicker">The core idea</p>
+            <h2>One coupled path, <span class="heading-line">from scene to display.</span></h2>
+            <p>
+              Conventional pipelines calibrate the camera and display independently, then connect them through a low-dimensional intermediate color space. We instead optimize the complete camera-to-display path for a specific observer.
+            </p>
+          </div>
+          <div class="paper-figure objective-figure reveal">
+            <img
+              src="static/images/objective.png"
+              loading="lazy"
+              alt="Comparison between separated camera and display calibration and our end-to-end learned projector, alongside radiance and color pass-through objectives."
+              width="2657"
+              height="1122"
+            />
+          </div>
+          <div class="overview-copy reveal">
+            <p>
+              Exact radiance pass-through is generally impossible: a three-channel camera cannot preserve every spectral dimension of a real scene. Color pass-through asks a more practical question—can the displayed result look the same to the observer?
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="method section-pad" id="method">
+        <div class="shell">
+          <div class="section-heading section-heading-light reveal">
+            <p class="kicker">Method</p>
+            <h2>Learn the projector. Correct what the camera cannot see.</h2>
+            <p>
+              Two complementary learned components transform a captured image into a display image that better matches the original scene for the target observer.
+            </p>
+          </div>
+          <div class="method-figure reveal">
+            <img
+              src="static/images/system.png"
+              loading="lazy"
+              alt="Full Color Pass-Through system with learned camera-display projection, camera-null correction, observer calibration, and display output."
+              width="2953"
+              height="1447"
+            />
+          </div>
+          <div class="method-cards">
+            <article class="method-card reveal">
+              <div class="method-number">01</div>
+              <div>
+                <h3>Camera-Display Projection</h3>
+                <p>A lightweight pixel-wise neural projector learns the nonlinear end-to-end mapping of a paired camera and display from re-captured RGB data.</p>
+              </div>
+            </article>
+            <article class="method-card reveal">
+              <div class="method-number">02</div>
+              <div>
+                <h3>Camera-Null Color Correction</h3>
+                <p>A learned predictor models the dominant metameric-black component, while a compact coefficient adapts the correction to each observer.</p>
+              </div>
+            </article>
+          </div>
+          <div class="paper-figure dark-figure reveal">
+            <img
+              src="static/images/components.png"
+              loading="lazy"
+              alt="Ablation showing camera-display projection and camera-null correction for camera and non-camera observers."
+              width="2657"
+              height="1093"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad results" id="results">
+        <div class="shell shell-wide">
+          <div class="section-heading reveal">
+            <p class="kicker">Visual results</p>
+            <h2>Closer color across unseen illumination.</h2>
+            <p>
+              Select an illumination setting to compare the default smartphone pipeline, per-scene ColorChecker calibration, and our method.
+            </p>
+          </div>
+
+          <div class="result-viewer reveal">
+            <div class="result-tabs" role="tablist" aria-label="Illumination setting">
+              <button
+                id="tab-indoor"
+                class="result-tab active"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                aria-controls="result-panel"
+                data-image="static/images/results/indoor.png"
+                data-title="Indoor illumination"
+                data-description="Unseen indoor illumination with spatially varying color casts."
+              >
+                <span>01</span> Indoor
+              </button>
+              <button
+                id="tab-outdoor"
+                class="result-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="result-panel"
+                data-image="static/images/results/outdoor.png"
+                data-title="Outdoor illumination"
+                data-description="Outdoor light and reflections challenge conventional calibration."
+              >
+                <span>02</span> Outdoor
+              </button>
+              <button
+                id="tab-mixed"
+                class="result-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="result-panel"
+                data-image="static/images/results/mixed.png"
+                data-title="Indoor + outdoor illumination"
+                data-description="Mixed lighting reveals the benefit of coupling the full capture-to-display path."
+              >
+                <span>03</span> Mixed
+              </button>
+            </div>
+            <div class="result-panel" id="result-panel" role="tabpanel" aria-labelledby="tab-indoor">
+              <div class="result-image-wrap">
+                <img
+                  id="result-image"
+                  src="static/images/results/indoor.png"
+                  alt="Direct in-scene comparison under indoor illumination."
+                  width="2186"
+                  height="374"
+                />
+              </div>
+              <div class="result-meta">
+                <strong id="result-title">Indoor illumination</strong>
+                <span id="result-description">Unseen indoor illumination with spatially varying color casts.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="comparison-block section-subspace">
+            <div class="subheading reveal">
+              <p class="kicker">Separated-view comparison</p>
+              <h3>Displayed result versus the real scene.</h3>
+            </div>
+            <div class="paper-figure reveal">
+              <a href="static/images/separated-comparison.png" target="_blank" aria-label="Open separated-view comparisons at full resolution">
+                <img
+                  src="static/images/separated-comparison.png"
+                  loading="lazy"
+                  alt="Four scene comparisons showing default smartphone camera, learned white balance, ours, and the real-scene ground truth."
+                  width="2539"
+                  height="1506"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="citation section-pad" id="citation">
+        <div class="shell prose-shell">
+          <div class="section-heading section-heading-light reveal">
+            <p class="kicker">Citation</p>
+            <h2>If this work helps your research, please cite us.</h2>
+          </div>
+          <div class="code-block reveal">
+            <button class="copy-button" type="button" data-copy-target="bibtex">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3" /></svg>
+              <span>Copy</span>
+            </button>
+            <pre id="bibtex"><code>@inproceedings{li2026colorpassthrough,
+  title     = {Color Pass-Through via Camera-Display Coupling},
+  author    = {Li, Ruikang and Li, Molin and Wu, Jiarui and
+               Wei, Zhe and Liu, Pengpeng and Xue, Tianfan},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  year      = {2026}
+}</code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <div>
+          <a class="brand footer-brand" href="#top">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span>Color Pass-Through</span>
+          </a>
+          <p>Color-faithful camera-to-display reproduction.</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://tianfan.info/papers/ECCV26_Color_Pass_Through.pdf">Paper</a>
+          <a href="https://github.com/lyricccco/color-pass-through">Code (Coming Soon)</a>
+          <a href="https://lyricccco.github.io/color-pass-through/">Project</a>
+        </div>
+        <p class="footer-note">Website design inspired by the <a href="https://openimaginglab.github.io/DualDn/">DualDn</a> project page.</p>
+      </div>
+    </footer>
+  </body>
+</html>
