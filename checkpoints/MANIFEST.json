@@ -1,0 +1,82 @@
+{
+  "format": "PyTorch checkpoint bundle",
+  "format_version": 1,
+  "models": {
+    "xiaomi_projector.ckpt": {
+      "device_id": "xiaomi_17promax",
+      "role": "camera_display_projector",
+      "architecture": "Fourier encoding plus 3-layer MLP",
+      "source_epoch": 46,
+      "source_global_step": 4700,
+      "validation_metric": {"name": "val/psnr", "value": 30.91506576538086},
+      "test_metrics": {
+        "test/loss": 0.019521482288837433,
+        "test/psnr": 30.91506576538086
+      },
+      "sha256": "55dd71b52c0d86ebf5a137d9a5f9c822cc1db4a7708be98c0dc622c1bb9fc420"
+    },
+    "huawei_projector.ckpt": {
+      "device_id": "huawei_pura70pro",
+      "role": "camera_display_projector",
+      "architecture": "Fourier encoding plus 3-layer MLP",
+      "source_epoch": 46,
+      "source_global_step": 4700,
+      "validation_metric": {"name": "val/psnr", "value": 32.2468147277832},
+      "test_metrics": {
+        "test/loss": 0.01716543734073639,
+        "test/psnr": 32.2468147277832
+      },
+      "sha256": "8bf3f75c9ac2f52604d56175f1e58f61c89766358cfb06b54ceba2fb6f81fb07"
+    },
+    "xiaomi_camera_null.ckpt": {
+      "device_id": "xiaomi_17promax",
+      "role": "camera_null",
+      "architecture": "MST++ 3-to-31 spectrum predictor with one null component",
+      "source_epoch": 49,
+      "source_global_step": 12500,
+      "validation_metric": {"name": "val/loss", "value": 0.07994675636291504},
+      "test_metrics": {
+        "test/loss": 0.07994675636291504,
+        "test/psnr_coef": 29.710935592651367,
+        "test/psnr_rgb": 26.754152297973633,
+        "test/psnr_spec": 32.1626091003418
+      },
+      "camera_sensitivity_sha256": "1220e0e85bc91caae8a2450b3821c9dda2e58668659c4bc82b1827c7eb7f1433",
+      "pca_components_sha256": "040c09929df1962f05b8dd24969a67b06fb2d8404f55f53f4d79d8cde4f1c381",
+      "sha256": "d4f215d622b14b2776182f00c04dd40aa21adbc42affe6cb8647a6309c714b67"
+    },
+    "huawei_camera_null.ckpt": {
+      "device_id": "huawei_pura70pro",
+      "role": "camera_null",
+      "architecture": "MST++ 3-to-31 spectrum predictor with one null component",
+      "source_epoch": 48,
+      "source_global_step": 12250,
+      "validation_metric": {"name": "val/loss", "value": 0.07176423072814941},
+      "test_metrics": {
+        "test/loss": 0.07176423072814941,
+        "test/psnr_coef": 29.983997344970703,
+        "test/psnr_rgb": 27.429052352905273,
+        "test/psnr_spec": 32.890010833740234
+      },
+      "camera_sensitivity_sha256": "f2de4e28f8dc13802cdf84522db7762450658a46e2c9417718436fd70aff45b8",
+      "pca_components_sha256": "f96db2441b82d531cde9c3244a24e34cf6fb367744bb5ed883dbd48eda150896",
+      "sha256": "ffd4363bef59f34e8e999d880d6596d9c2e7c3e657f692009eb4d6f6cf36aed1"
+    }
+  },
+  "preprocessing": {
+    "raft_projector_alignment.pth": {
+      "role": "projector_pair_optical_flow_alignment",
+      "architecture": "RAFT/FLOW",
+      "upstream_filename": "warp.pth",
+      "license": "BSD-3-Clause",
+      "sha256": "fcfa4125d6418f4de95d84aec20a3c5f4e205101715a79f193243c186ac9a7e1"
+    },
+    "dualdn_raw_denoising.pth": {
+      "role": "projector_pair_raw_denoising",
+      "architecture": "DualDn Raw_Dn",
+      "upstream_filename": "net_g_150000.pth",
+      "license": "CC-BY-NC-4.0",
+      "sha256": "4856204d26358a7e8c808d6e4cb3d34f3d982d3f1d146aaa4fd918631e7be4c7"
+    }
+  }
+}

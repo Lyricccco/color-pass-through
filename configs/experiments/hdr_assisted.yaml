@@ -1,0 +1,11 @@
+status: supplementary
+description: RAW + blur(RAW) + camera ISP to display sRGB
+projector:
+  input_mode: hdr_assisted
+  encoding: fourier
+  num_frequencies: 4
+  hidden_dim: 128
+  hidden_layers: 2
+notes:
+  - This supplementary mode requires triplet data rather than canonical pairs.
+  - Projector LUT export is unavailable because the input has more than RGB channels.

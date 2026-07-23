@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the Color Pass-Through paper."
+title: "Color Pass-Through via Camera-Display Coupling"
+type: software
+authors:
+  - family-names: Li
+    given-names: Ruikang
+    orcid: "https://orcid.org/0009-0003-2608-2673"
+  - family-names: Li
+    given-names: Molin
+  - family-names: Wu
+    given-names: Jiarui
+  - family-names: Wei
+    given-names: Zhe
+  - family-names: Liu
+    given-names: Pengpeng
+  - family-names: Xue
+    given-names: Tianfan
+version: 0.1.0
+date-released: 2026-07-18
+preferred-citation:
+  type: conference-paper
+  title: "Color Pass-Through via Camera-Display Coupling"
+  authors:
+    - family-names: Li
+      given-names: Ruikang
+    - family-names: Li
+      given-names: Molin
+    - family-names: Wu
+      given-names: Jiarui
+    - family-names: Wei
+      given-names: Zhe
+    - family-names: Liu
+      given-names: Pengpeng
+    - family-names: Xue
+      given-names: Tianfan
+  collection-title: "European Conference on Computer Vision (ECCV)"
+  year: 2026

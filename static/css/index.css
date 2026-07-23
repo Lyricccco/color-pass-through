@@ -695,6 +695,26 @@ button {
   margin: 0;
 }
 
+.intro-video-section {
+  background: #f0f1f6;
+  border-block: 1px solid var(--line);
+}
+
+.intro-video-frame {
+  overflow: hidden;
+  background: #000000;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.intro-video-frame video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000000;
+  object-fit: contain;
+}
+
 .method {
   position: relative;
   overflow: hidden;

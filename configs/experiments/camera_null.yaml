@@ -1,0 +1,13 @@
+epochs: 50
+batch_size: 4
+optimizer: adam
+learning_rate: 0.0004
+loss:
+  coefficient_l1: 1.0
+  coefficient_tv: 0.01
+  spectrum_l1: 1.0
+scheduler:
+  name: step
+  step_size: 10
+  gamma: 0.5
+precision: 16-mixed

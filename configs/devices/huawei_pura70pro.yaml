@@ -1,0 +1,69 @@
+schema_version: 1
+device_id: huawei_pura70pro
+camera_model: Huawei Pura 70 Pro
+
+data:
+  capture_root: dataset://projector/huawei_pura70pro/raw
+  projector:
+    pairs: dataset://projector/huawei_pura70pro/derived/v1/Image_Pairs_Flow
+    frame_shape: [992, 1776]
+    train_split: dataset://splits/projector_train_800.txt
+    test_split: dataset://splits/projector_test_100.txt
+    hald_split: dataset://splits/projector_hald_1.txt
+  camera_null:
+    spectrum: dataset://camera_null/hyperspectral_gt/v1
+    camera_rgb: dataset://camera_null/simulated_rgb/v1/huawei_pura70pro
+    validation_split: dataset://splits/hsi_val_182.txt
+  colorchecker: dataset://camera_null/colorchecker/huawei_pura70pro
+
+raw:
+  base_exposure: 0.25
+  demosaic: AHD
+  white_balance_mode: camera
+  crop_top_bottom: 384
+  resize_scale: 0.25
+  crop_multiple: 64
+  gain_map: dataset://projector/huawei_pura70pro/calibration/vignetting_fitted/gain_gainmaps.npz
+  gain_key: gain_center1
+  apply_gain_map: true
+  dark_frame_raw: dataset://projector/huawei_pura70pro/calibration/dark_frame_fitted/Fit_flat-frame.npy
+  dark_frame_rgb: dataset://projector/huawei_pura70pro/calibration/dark_frame_fitted/Fit_flat-frame.png
+  pair_roi:
+    raw: {center_x: 2056, center_y: 1444, height: 1026}
+    isp: {center_x: 2055, center_y: 1441, height: 1131}
+
+models:
+  projector:
+    input_mode: raw_green_context
+    encoding: fourier
+    num_frequencies: 4
+    hidden_dim: 128
+    hidden_layers: 2
+    output_activation: none
+    checkpoint: repo://checkpoints/huawei_projector.ckpt
+  camera_null:
+    camera_sensitivity: dataset://camera_null/fitted/huawei_pura70pro/estimated_css.npy
+    pca_components: dataset://camera_null/fitted/huawei_pura70pro/pca_components_n3.npy
+    num_components: 1
+    coefficient_weight: 1.0
+    tv_weight: 0.01
+    spectrum_weight: 1.0
+    checkpoint: repo://checkpoints/huawei_camera_null.ckpt
+
+observer:
+  phi_low: 0.025
+  phi_high: 0.075
+  phi_step: 0.0125
+  correction_sign: -1
+
+preparation:
+  pair_output_root: dataset://projector/huawei_pura70pro/derived
+  flow_checkpoint: repo://checkpoints/raft_projector_alignment.pth
+  denoise_checkpoint: repo://checkpoints/dualdn_raw_denoising.pth
+  flow_iterations: 40
+  resize_scale: 0.5
+  border_crop: 16
+  blur_display_kernel: 3
+  apply_gain_map_to_pairs: true
+  colorchecker_corners: "1610,1600;2732,1618;1590,2362;2724,2368"
+  colorchecker_raw_white_balance: camera

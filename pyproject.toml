@@ -1,0 +1,69 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "color-pass-through"
+version = "0.1.0"
+description = "Simplified pure-PyTorch Color Pass-Through implementation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+dependencies = [
+  "numpy>=1.26,<2",
+  "PyYAML>=6.0",
+  "torch>=2.5,<2.6",
+  "Pillow>=10",
+  "einops>=0.8",
+]
+
+[project.optional-dependencies]
+raw = [
+  "rawpy>=0.21",
+  "kornia>=0.7",
+]
+train = [
+  "lightning>=2.4,<3",
+  "matplotlib>=3.8",
+  "torchvision>=0.20,<0.21",
+  "lpips>=0.1.4",
+  "pytorch-msssim>=1.0.0",
+]
+prepare = [
+  "opencv-python>=4.8",
+  "scipy>=1.12",
+  "pandas>=2.1",
+  "matplotlib>=3.8",
+  "imageio>=2.33",
+  "tifffile>=2023.9",
+  "h5py>=3.10",
+  "scikit-learn>=1.4",
+  "tqdm>=4.66",
+]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+cpt-train-projector = "color_pass_through.cli.train_projector:main"
+cpt-train-camera-null = "color_pass_through.cli.train_camera_null:main"
+cpt-predict = "color_pass_through.cli.predict:main"
+cpt-calibrate-observer = "color_pass_through.cli.calibrate_observer:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint.per-file-ignores]
+# Preserve equation-oriented names and compact control flow in source-faithful
+# scientific ports. Maintained package code remains subject to the default rules.
+"src/color_pass_through/models/mst_plus_plus.py" = ["E741"]
+"tools/estimate_camera_sensitivity.py" = ["E701", "E702", "E741"]
+"tools/fit_vignetting_gainmap.py" = ["E402", "E701", "E702"]
+# NumPy is deliberately imported inside the CLI path; annotations are deferred.
+"tools/fit_null_pca.py" = ["F821"]

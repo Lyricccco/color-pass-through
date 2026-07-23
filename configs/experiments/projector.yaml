@@ -1,0 +1,10 @@
+epochs: 50
+batch_size: 8
+optimizer: adam
+learning_rate: 0.001
+loss: l1
+scheduler:
+  name: step
+  step_size: 10
+  gamma: 0.5
+precision: 16-mixed

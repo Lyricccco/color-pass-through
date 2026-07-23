@@ -1,0 +1,48 @@
+# One-file installation for training, inference, data preparation and tests.
+# The repository intentionally does not override pip's configured index URL.
+# ExifTool is an optional external executable for DNG metadata, not a pip
+# package; existing prepared-data training and tests do not require it.
+
+# Build and packaging
+setuptools>=69
+wheel
+packaging
+
+# Core runtime
+# NumPy 2 is not used by the paper environment and can break older compiled
+# scientific wheels. PyTorch and torchvision are constrained as a compatible
+# minor-version pair; patch releases remain free.
+numpy>=1.26,<2
+PyYAML>=6.0
+torch>=2.5,<2.6
+torchvision>=0.20,<0.21
+Pillow>=10
+einops>=0.8
+
+# RAW and image processing
+rawpy>=0.21
+kornia>=0.7
+opencv-python>=4.8
+imageio>=2.33
+tifffile>=2023.9
+
+# Training and metrics
+# Only the next Lightning major is excluded because it may change Trainer APIs.
+lightning>=2.4,<3
+lpips>=0.1.4
+pytorch-msssim>=1.0.0
+
+# Data preparation and scientific computing
+scipy>=1.12
+pandas>=2.1
+matplotlib>=3.8
+h5py>=3.10
+scikit-learn>=1.4
+tqdm>=4.66
+
+# Tests and lint
+pytest>=8
+ruff>=0.6
+
+# Install this source tree as an editable package.
+-e .
