@@ -218,12 +218,11 @@ the [project page](https://lyricccco.github.io/color-pass-through/).
 ## Citation
 
 ```bibtex
-@inproceedings{li2026colorpassthrough,
-  title     = {Color Pass-Through via Camera-Display Coupling},
-  author    = {Li, Ruikang and Li, Molin and Wu, Jiarui and
-               Wei, Zhe and Liu, Pengpeng and Xue, Tianfan},
-  booktitle = {European Conference on Computer Vision (ECCV)},
-  year      = {2026}
+@article{li2026color,
+  title={Color Pass-Through via Camera-Display Coupling},
+  author={Li, Ruikang and Li, Molin and Wu, Jiarui and Wei, Zhe and Liu, Pengpeng and Xue, Tianfan},
+  journal={arXiv preprint arXiv:2607.12746},
+  year={2026}
 }
 ```
 
