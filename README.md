@@ -54,15 +54,38 @@ deliver color pass-through across diverse scenes.
 
 ## Introduction & motivation
 
-This short introduction presents the problem setting, the limitations of
-traditional camera-display calibration, and the motivation behind our coupled
-learning framework.
+Traditional ICC workflows accumulate errors across two coarse calibration
+stages and rely on a predefined intermediate color space.
 
-[![Watch the Color Pass-Through introduction video](./static/images/intro-video-poster.jpg)](./static/videos/Color-pass-through-intro.mp4)
+<div align="center">
+  <img src="static/images/introduction/error.svg" alt="Error accumulation in a traditional ICC camera-display workflow" width="96%">
+</div>
 
-<p align="center">
-  <a href="./static/videos/Color-pass-through-intro.mp4"><strong>▶ Watch the introduction video</strong></a>
-</p>
+We instead learn an end-to-end camera-display projection that directly
+reproduces the colors of the real scene.
+
+<div align="center">
+  <img src="static/images/introduction/projector.svg" alt="End-to-end camera-display projection for true-color reproduction" width="96%">
+</div>
+
+An end-to-end projector alone, however, is not sufficient: it learns only the
+camera-observable color subspace. Analogous to a LoRA adapter, it operates
+within a constrained learned subspace rather than spanning all possible color
+variations.
+
+<div align="center">
+  <img src="static/images/introduction/lora.svg" alt="The projector learns a constrained camera-observable color subspace" width="96%">
+</div>
+
+Because the projector learns camera metamers rather than observer metamers, we
+introduce camera-null correction to recover the missing spectral variation and
+enable color pass-through for different observers.
+
+<div align="center">
+  <img src="static/images/introduction/metamer.svg" alt="Camera-null correction enables color pass-through for different observers" width="96%">
+</div>
+
+For more details, please <a href="https://lyricccco.github.io/color-pass-through/#introduction" target="_blank" rel="noopener noreferrer"><strong>▶ Watch the introduction video</strong></a>.
 
 ## Method
 
